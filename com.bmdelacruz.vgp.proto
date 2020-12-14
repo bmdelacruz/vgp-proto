@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package com.bmdelacruz.vgp;
+
+message Input {
+  message Button {
+    enum Type {
+      A = 0;
+      B = 1;
+      X = 2;
+      Y = 3;
+
+      UP = 4;
+      DOWN = 5;
+      LEFT = 6;
+      RIGHT = 7;
+
+      TRIGGER_LEFT = 8;
+      TRIGGER_RIGHT = 9;
+      TRIGGER_2_LEFT = 10;
+      TRIGGER_2_RIGHT = 11;
+
+      THUMB_LEFT = 12;
+      THUMB_RIGHT = 13;
+
+      START = 14;
+      SELECT = 15;
+    }
+
+    enum State {
+      RELEASED = 0;
+      PRESSED = 1;
+    }
+
+    Type type = 1;
+    State state = 2;
+  }
+
+  message Position {
+    enum Type {
+      LEFT_X = 0;
+      LEFT_Y = 1;
+      RIGHT_X = 2;
+      RIGHT_Y = 3;
+    }
+
+    Type type = 1;
+    int32 position = 2;
+  }
+
+  oneof control {
+    Button button = 2;
+    Position position = 3;
+  }
+}
+
+message Output {
+}
+
+service GamePadService {
+  rpc InstantiateGamePad (stream Input) returns (Output);
+}
