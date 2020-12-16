@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package gamepad;
+
+message CheckRequest {
+}
+
+message CheckResponse {
+}
+
+enum ButtonType {
+  A = 0;
+  B = 1;
+  X = 2;
+  Y = 3;
+
+  UP = 4;
+  DOWN = 5;
+  LEFT = 6;
+  RIGHT = 7;
+
+  TRIGGER_LEFT = 8;
+  TRIGGER_RIGHT = 9;
+  TRIGGER_2_LEFT = 10;
+  TRIGGER_2_RIGHT = 11;
+
+  THUMB_LEFT = 12;
+  THUMB_RIGHT = 13;
+
+  START = 14;
+  SELECT = 15;
+}
+
+enum ButtonState {
+  RELEASED = 0;
+  PRESSED = 1;
+}
+
+message Button {
+  ButtonType type = 1;
+  ButtonState state = 2;
+}
+
+enum ThumbStickType {
+  LEFT_THUMB_STICK = 0;
+  RIGHT_THUMB_STICK = 1;
+}
+
+message ThumbStick {
+  ThumbStickType type = 1;
+  float x = 2;
+  float y = 3;
+}
+
+message InputData {
+  oneof control {
+    Button button = 1;
+    ThumbStick thumb_stick = 2;
+  }
+}
+
+message OutputData {
+}
+
+service GamePad {
+  rpc Check (CheckRequest) returns (CheckResponse);
+  rpc Instantiate (stream InputData) returns (OutputData);
+}
