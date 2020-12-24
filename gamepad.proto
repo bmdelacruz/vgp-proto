@@ -80,10 +80,20 @@ message ForceFeedbackErased {
   int32 id = 1;
 }
 
+message ForceFeedbackPlayed {
+  int32 id = 1;
+}
+
+message ForceFeedbackStopped {
+  int32 id = 1;
+}
+
 message OutputData {
   oneof feedback {
     ForceFeedbackUploaded ff_uploaded = 1;
     ForceFeedbackErased ff_erased = 2;
+    ForceFeedbackPlayed ff_played = 3;
+    ForceFeedbackStopped ff_stopped = 4;
   }
 }
 
