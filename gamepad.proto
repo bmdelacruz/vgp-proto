@@ -61,10 +61,33 @@ message InputData {
   }
 }
 
+message RumbleForceFeedback {
+  uint32 strong_magnitude = 1;
+  uint32 weak_magnitude = 2;
+}
+
+message ForceFeedbackUploaded {
+  int32 id = 1;
+  uint32 direction = 2;
+  uint32 replay_length = 3;
+  uint32 replay_delay = 4;
+  oneof type {
+    RumbleForceFeedback rumble = 5;
+  }
+}
+
+message ForceFeedbackErased {
+  int32 id = 1;
+}
+
 message OutputData {
+  oneof feedback {
+    ForceFeedbackUploaded ff_uploaded = 1;
+    ForceFeedbackErased ff_erased = 2;
+  }
 }
 
 service GamePad {
   rpc Check (CheckRequest) returns (CheckResponse);
-  rpc Instantiate (stream InputData) returns (OutputData);
+  rpc Instantiate (stream InputData) returns (stream OutputData);
 }
