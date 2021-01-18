@@ -55,7 +55,7 @@ message ThumbStick {
 }
 
 message InputData {
-  oneof control {
+  oneof input {
     Button button = 1;
     ThumbStick thumb_stick = 2;
   }
@@ -66,34 +66,9 @@ message RumbleForceFeedback {
   uint32 weak_magnitude = 2;
 }
 
-message ForceFeedbackUploaded {
-  int32 id = 1;
-  uint32 direction = 2;
-  uint32 replay_length = 3;
-  uint32 replay_delay = 4;
-  oneof type {
-    RumbleForceFeedback rumble = 5;
-  }
-}
-
-message ForceFeedbackErased {
-  int32 id = 1;
-}
-
-message ForceFeedbackPlayed {
-  int32 id = 1;
-}
-
-message ForceFeedbackStopped {
-  int32 id = 1;
-}
-
 message OutputData {
-  oneof feedback {
-    ForceFeedbackUploaded ff_uploaded = 1;
-    ForceFeedbackErased ff_erased = 2;
-    ForceFeedbackPlayed ff_played = 3;
-    ForceFeedbackStopped ff_stopped = 4;
+  oneof output {
+    RumbleForceFeedback rumble = 1;
   }
 }
 
